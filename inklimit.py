@@ -25,6 +25,8 @@ def ink_limit_proportional(
     cmyks = arr / 255.          # range is 0. to 1.
     totals = np.sum(cmyks, axis=-1, keepdims=True)
     # TODO: implement proportional reduction here
+    where_totals_over = np.where(totals > inkLimit )
+    cmyks[where_totals_over[0], where_totals_over[1]] *= inkLimit * 0.9 / totals[where_totals_over[0], where_totals_over[1]]
     return (cmyks * 255.).astype(np.uint8)
 
 
